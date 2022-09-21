@@ -311,7 +311,30 @@ Para llevar a la práctica un diagrama debemos ir más allá y darle detalle con
 
 Nota:
 
-Char(8) reserva 8 espacios en memoria de forma fija, Varchar(8) hace lo mismo pero crece (1,2,3...8) de manera dinámica conforme los requieres.
+- Char(8) reserva 8 espacios en memoria de forma fija (Se puede modificar posteriormente con "ALTER TABLE"), Varchar(8) hace lo mismo pero crece (1,2,3...8) de manera dinámica conforme los requieres.
+
+- NUMERIC VS DECIMAL: La diferencia entre ambos tipos de datos es en la forma en la cual la precisión es restringida.
+
+Cuando el tipo de dato es NUMERIC, la precisión es exactamente la declarada. En cambio, cuando el tipo de datos es DECIMAL la precisión es al menos igual a la declarada. Eso significa que NUMERIC es más estricto que DECIMAL.
+
+Por ejemplo, NUMERIC(4, 2) define a un número que puede tener como máximo 4 dígitos, de los cuales 2 de ellos sí o sí corresponderán a la parte decimal.
+
+Eso significa que el número 1,23 será almacenado como 1,23 pero el número 1,234 será almacenado como 1,23 porque la escala es 2 y por lo tanto no puede almacenarse con más de 2 dígitos decimales. También 1,2345678 será almacenado como 1,23. El número 567,89 no podrá ser almacenado porque la parte entera tiene 3 dígitos y solamente debería tener 2 dígitos, si intentamos almacenarlo la base de datos nos regresará un error.
+
+Internamente NUMERIC es un Small-Int
+
+Ahora vamos con DECIMAL…
+
+Similarmente a NUMERIC el mayor número que puede guardarse en una columna de este tipo no es el declarado. Por ejemplo si una columna se declara como DECIMAL(4, 1) uno podría pensar que el máximo número permitido sería 999,9 pero sin embargo el mayor número permitido es 214.748.364,7 y el menor número permitido es -214.748.364,8
+
+¿Por qué eso? porque el tipo de datos DECIMAL se guarda internamente como un INTEGER y el rango de valores de INTEGER es de -2.147.483.648 hasta 2.147.483.647 y como en este ejemplo la escala es 1 entonces para hallar el rango de valores se divide por 10. Si la escala fuera 2 se dividiría por 100, si fuera 3 se dividiría por 1.000 y así sucesivamente.
+
+En pocas palabras, la diferencia radíca en el length del numero, si vas a trabajar con datos grandes es mejor utilizar DECIMAL como tipo de dato, pero si trabajarás con datos un poco más chicos será mejor utilizar NUMERIC
+
+Te dejo a continuación la fuente de donde conseguí la información, saludos!
+
+https://firebird21.wordpress.com/2013/05/17/usando-numeric-y-decimal/
+
 
 #### Constraints (Restricciones)
 
