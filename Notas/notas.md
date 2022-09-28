@@ -1263,6 +1263,12 @@ FROM usuarios
  RIGHT JOIN posts ON usuarios.id = posts.usuario_id
 WHERE posts.usuario_id IS NULL;
 ```
+Uniendo 3 tablas:
+
+SELECT login, titulo, nombre_categoria 
+FROM usuarios 
+JOIN posts on usuarios.id = posts.usuario_id 
+JOIN categorias on posts.categoria_id = categorias.id;
 
 ### Clase 33 WHERE
 
