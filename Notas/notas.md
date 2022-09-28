@@ -1366,6 +1366,10 @@ FROM posts
 WHERE MONTH(fecha_publicacion) = "04";
 ```
 
+Cabe mencionar que los operadores LIKE y BETWEEN AND, pueden ser negados con NOT
+NOT LIKE
+NOT BETWEEEN – AND –
+
 ### Clase 34 Utilizando la sentencia WHERE nulo y no nulo
 
 El valor nulo en una tabla generalmente es su valor por defecto cuando nadie le asignó algo diferente. La sintaxis para hacer búsquedas de datos nulos es **IS NULL**. La sintaxis para buscar datos que no son nulos es **IS NOT NULL**
