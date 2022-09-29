@@ -1601,6 +1601,20 @@ WHERE posts_etiquetas.etiqueta_id IS NULL
 ;
 ```
 
+Función CASE permite agregar un campo virtual con información generada a partir de condiciones múltiples.
+Mostrar el idioma, precio de todos los libros, así como agregar una columna de informe que indique si el libro es caro, módico o barato basado en el precio
+
+```sql
+SELECT  idioma, precio, 
+CASE
+	WHEN precio > 1000 THEN "Muy caro"
+	WHEN precio > 500 THEN "Precio módico"
+	ELSE "Muy barato"
+END AS "informe"
+FROM libros;
+
+```
+
 ### Clase 40 Consultando PlatziBlog
 
 Puedes usar una abreviación para evitar escribir lo mismo cada vez.
